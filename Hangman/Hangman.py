@@ -25,14 +25,16 @@ def DisplayCurrent():
 def Prompt():
     time.sleep(3)
     global End
-    Continue = input("Continue? (y/n): ").lower()
-    if Continue == 'y':
+    Continue = input("Play again? (y/n): ").lower()
+    if Continue == 'y' or Continue == 'yes':
         End = False
         print(" ")
     else:
         exit()
 #Start
 Reset()
+print("")
+print("WELCOME to HANGMAN (To Exit type exit)")
 DisplayCurrent()
 End = False
 while End == False:
@@ -50,17 +52,20 @@ while End == False:
     if Guess == "debug":
         print(newWord)
         Remaining += 1
+    #if guess is Exit then exit
+    if Guess.lower() == "exit":
+        exit()
     #If guess is right and is already guessed, do nothing, else add it to correct
     if Guess in newWord:
         if Guess not in CorrectGuesses:
             CorrectGuesses.append(Guess)
-    #If guess is wrong, take off a chacne
+    #If guess is wrong, take off a chance
     if Guess not in newWord:
         Remaining -= 1
     DisplayCurrent()
     #Winning circumstances
     if CurrentOutput == newWord:
-        print("You Win!")
+        print("Contratulations, You Win!")
         Prompt()
         Reset()
         DisplayCurrent()
